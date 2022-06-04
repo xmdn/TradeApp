@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
+from matplotlib.pyplot import title
 
 app = Flask(__name__)
 
@@ -51,6 +52,24 @@ def add_content():
     db.session.add(contents)
     db.session.commit()
     return users_schema.jsonify(contents)
+
+@app.route('/update/<id>/', methods = ['PUT'])
+def update_users(id):
+    user = Users.query.get(id)
+    title = request.json['title']
+    body = request.json['body']
+    user.title = title 
+    user.body = body
+
+    db.session.commit()
+    return users_schema.jsonify(user)
+
+@app.route('/delete/<id>/', methods = ['DELETE'])
+def delete_users(id):
+    user = Users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return users_schema.jsonify(user)
 
 if __name__ == "__main__":
     app.run(debug=True)
