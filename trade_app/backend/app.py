@@ -1,12 +1,17 @@
 from flask import Flask, jsonify, request
+from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from matplotlib.pyplot import title
+from views.auth import *
+from views.hello import *
 
 app = Flask(__name__)
+jwt = JWTManager(app)
 CORS(app)
+app.config['SECRET_KEY'] = 'hello'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/tradedb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -72,6 +77,9 @@ def delete_users(id):
     db.session.delete(user)
     db.session.commit()
     return users_schema.jsonify(user)
+
+app.register_blueprint(auth)
+app.register_blueprint(hello)
 
 if __name__ == "__main__":
     app.run(debug=True)
