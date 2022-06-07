@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import crypto from "crypto";
+import crypto from "crypto-browserify";
 import Axios from "../plugins/axios";
 import router from "../routers.js";
 export default {

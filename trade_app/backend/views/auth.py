@@ -2,7 +2,7 @@ from . import auth
 from flask import jsonify, request
 from flask_jwt_extended import (
     jwt_required, create_access_token,
-    get_jwt_identity, get_jti, get_raw_jwt
+    get_jwt_identity, get_jti, get_jwt
 )
 from module import db, auth_jti
 import bcrypt
@@ -47,7 +47,7 @@ def signin():
 @auth.route("/protected", methods=["GET"])
 @jwt_required
 def protected():
-    user = auth_jti(get_jwt_identity(), get_raw_jwt()["jti"])
+    user = auth_jti(get_jwt_identity(), get_jwt()["jti"])
     if not user:
         return jsonify({"message": "Bad access token"}), 401
 

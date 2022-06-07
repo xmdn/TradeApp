@@ -51,7 +51,7 @@
 <script>
 import Cookies from "js-cookie";
 import Axios from "../plugins/axios";
-import crypto from "crypto";
+import crypto from "crypto-browserify";
 import router from "../routers";
 export default {
   name: 'signin',

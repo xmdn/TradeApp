@@ -4,8 +4,8 @@ import Vue from 'vue'
 
 Vue.use();
 
-// export default new Vuetify({
-//    icons: {
-//      iconfont: "mdi"
-//    }
-// });
+//  export default new Vuetify({
+//     icons: {
+//       iconfont: "mdi"
+//     }
+//  });

@@ -2,14 +2,14 @@ import sqlite3
 from contextlib import closing
 from typing import Optional
 
-from config import DBInfo
+
 
 
 def db(sql, data=None) -> Optional[dict]:
     """SQL"""
 
     rows = []
-    with closing(sqlite3.connect(DBInfo.db_path)) as conn:
+    with closing(sqlite3.connect('user.db')) as conn:
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
         c.execute(sql, data)
@@ -20,7 +20,7 @@ def db(sql, data=None) -> Optional[dict]:
 
 
 def auth_jti(user_id, token_jti) -> bool:
-    """some"""
+    """SQL send"""
 
     sql = "SELECT username, jti FROM authinfo WHERE user_id=?;"
     user = db(sql, [user_id])
